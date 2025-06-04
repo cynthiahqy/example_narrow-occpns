@@ -9,12 +9,18 @@ format: gfm
 #| label: setup
 #| echo: false
 #| output: false
-library(tidyverse)
+```
+
+## Setup
+
+```{r}
+#| eval: false
+install.packages("xmap")
 ```
 
 ## Extract transformation
 
-The first step is creating the a "carbon paper" object that stands in for original data:
+The first step is creating the "carbon copy" object that stands in for original data:
 
 ```{r}
 #| filename: "01-carbon-from.R"
@@ -25,7 +31,7 @@ The first step is creating the a "carbon paper" object that stands in for origin
 This is done by extracting all the unique values of `occupn` codes from the `occupation-data.csv` data:
 
 ```{r}
-readr::read_csv("interim/occupn-vector.csv", show_col_types = FALSE) |> glimpse()
+readr::read_csv("interim/occupn-vector.csv", show_col_types = FALSE) |> dplyr::glimpse()
 ```
 
 Pass this "carbon paper" vector into a modified version of the data aggregation script (`inbox/occupations do file.docx`) instead of the original data and save the output. See [`02-trace-do-file.log`](02-trace-do-file.log) for the output of the STATA script.

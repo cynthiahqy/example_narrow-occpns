@@ -1,10 +1,16 @@
 # Using the xmap structure to explore STATA aggregation script
 
 
+## Setup
+
+``` r
+install.packages("xmap")
+```
+
 ## Extract transformation
 
-The first step is creating the a “carbon paper” object that stands in
-for original data:
+The first step is creating the “carbon copy” object that stands in for
+original data:
 
 <div class="code-with-filename">
 

@@ -1,0 +1,114 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      18.0
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2023 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-STATA-PC        https://www.stata.com
+                                   979-696-4600        stata@stata.com
+
+Stata license: 380-user network perpetual
+Serial number: 401806302793
+  Licensed to: Monash User
+               Monash University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased; see help set_maxvar.
+
+. do 02-trace-do-file.do 
+
+. /* merged data occupation*/
+. /* professional, manager, teacher, assprofclerk, svcsales, armforces, 
+> xefe, farmer, craftrademach, labourer, driver, notclass */
+. 
+. // use "C:\Users\binder\Dropbox\brett folders\Census 2015\Unit Record Data files\merged data.dta", clear
+. import delimited "/Users/chua0032/Library/CloudStorage/Dropbox/Conformr/brett_occupations/interim/occupn-vector.csv", varnam
+> es(1) numericcols(_all)
+(encoding automatically selected: ISO-8859-2)
+(1 var, 330 obs)
+
+. 
+. gen farmer=0
+
+. replace farmer=1 if occupn>6000 & occupn<7000
+(17 real changes made)
+
+. gen teacher=0
+
+. replace teacher=1 if occupn>2400 & occupn<2500
+(10 real changes made)
+
+. gen professional=0
+
+. replace professional=1 if occupn>2000 & occupn<3000 & teacher==0
+(57 real changes made)
+
+. gen manager=0
+
+. replace manager=1 if occupn>1000 & occupn<1129
+(2 real changes made)
+
+. replace manager=1 if occupn>1131 & occupn<2000
+(30 real changes made)
+
+. gen armforces=0
+
+. replace armforces=1 if occupn<200 
+(4 real changes made)
+
+. gen xefe=0
+
+. replace xefe=1 if occupn==1130
+(1 real change made)
+
+. gen assprofclerk=0
+
+. replace assprofclerk=1 if occupn>3000 & occupn<5000
+(87 real changes made)
+
+. gen svcsales=0
+
+. replace svcsales=1 if occupn>5000 & occupn<6000
+(23 real changes made)
+
+. replace svcsales=1 if occupn>9000 & occupn<9200
+(13 real changes made)
+
+. gen labourer=0
+
+. replace labourer=1 if occupn>9200 & occupn<9320
+(6 real changes made)
+
+. gen driver=0
+
+. replace driver=1 if occupn>8320 & occupn<8330
+(4 real changes made)
+
+. replace driver=1 if occupn>9330 & occupn<9340
+(3 real changes made)
+
+. gen craftrademach=0
+
+. replace craftrademach=1 if occupn>7000 & occupn<9000 & driver==0
+(70 real changes made)
+
+. gen notclass=0
+
+. replace notclass=1 if occupn>9990 & occupn<10000
+(2 real changes made)
+
+. 
+. // sum professional manager teacher assprofclerk svcsales armforces xefe farmer craftrademach labourer driver notclass if p3
+> p30_school_level==6
+. 
+. save "/Users/chua0032/Library/CloudStorage/Dropbox/Conformr/brett_occupations/interim/occupn-inc-matrix.dta"
+file /Users/chua0032/Library/CloudStorage/Dropbox/Conformr/brett_occupations/interim/occupn-inc-matrix.dta already exists
+r(602);
+
+end of do-file
+r(602);

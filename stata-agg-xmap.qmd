@@ -1,0 +1,60 @@
+---
+title: "Using the xmap structure to explore STATA aggregation script"
+filters:
+  - include-code-files
+format: html
+---
+
+```{r}
+#| label: setup
+#| echo: false
+#| output: false
+library(tidyverse)
+```
+
+## Extract transformation
+
+The first step is creating the a "carbon paper" object that stands in for original data:
+
+```{r}
+#| filename: "01-carbon-from.R"
+#| file: 01-carbon-from.R
+#| eval: false
+```
+
+This is done by extracting all the unique values of `occupn` codes from the `occupation-data.csv` data:
+
+```{r}
+readr::read_csv("interim/occupn-vector.csv", show_col_types = FALSE) |> glimpse()
+```
+
+Pass this "carbon paper" vector into a modified version of the data aggregation script (`inbox/occupations do file.docx`) instead of the original data and save the output. See [`02-trace-do-file.log`](02-trace-do-file.log) for the output of the STATA script.
+
+```{.stata include="02-trace-do-file.do" filename="02-trace-do-file.do"}
+```
+
+The output STATA data file contains the xmap in matrix form:
+
+```{r}
+haven::read_dta("interim/occupn-inc-matrix.dta")
+```
+
+Extract the transformation links from the output of the previous step:
+
+```{r}
+#| file: 03-extract-xmap-from-dta.R
+#| filename: "03-extract-xmap-from-dta.R"
+#| eval: false
+```
+
+The extracted links can be found in [`output/dta_links.csv`](output/dta_links.csv):
+
+```{r}
+readr::read_csv("output/dta_links.csv", show_col_types = FALSE)
+```
+
+From here, we can:
+
+- visualise/summarise the links
+- verify the transformation is correct (i.e. the links form a valid xmap)
+- apply the xmap to the original data and compare it with data produced by the STATA script

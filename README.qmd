@@ -2,7 +2,7 @@
 title: "Using the xmap structure to explore STATA aggregation script"
 filters:
   - include-code-files
-format: html
+format: gfm
 ---
 
 ```{r}
@@ -42,8 +42,8 @@ haven::read_dta("interim/occupn-inc-matrix.dta")
 Extract the transformation links from the output of the previous step:
 
 ```{r}
-#| file: 03-extract-xmap-from-dta.R
-#| filename: "03-extract-xmap-from-dta.R"
+#| file: 03a-extract-links-from-dta.R
+#| filename: "03a-extract-links-from-dta.R"
 #| eval: false
 ```
 
